@@ -52,10 +52,10 @@ app.put('/update', (req, res) => {
     id = req.body.id;
     wage = req.body.wage;
     db.query(
-        "UPDATE SET employees wage = ? WHERE id = ?", 
+        "UPDATE employees SET wage = ? WHERE id = ?", 
         [wage, id],
         (err, result) => {
-            if (err, result) {
+            if (err) {
                 console.log(err);
             } else {
                 res.send(result);
@@ -64,7 +64,19 @@ app.put('/update', (req, res) => {
     );
 });
 
+app.delete("/delete/:id", (req, res) => {
+    // console.log(["holi", req, res]);
+    const id = req.params.id;
+    db.query("DELETE FROM employees WHERE id = ?", id, (err, result) => {
+       if (err) {
+        console.log(err);
+       } else {
+        res.send(result);
+       }
+    });
+})
 
-app.listen(3001, () => {
-    console.log("Yey, your server is running on port 3001")
+
+app.listen(3002, () => {
+    console.log("Yey, your server is running on port 3002")
 });
